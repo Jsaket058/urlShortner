@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>All Urls</h1>
+    <ul>
+        <% urls.forEach(url => { %>
+            <li>
+                Original URL: <a href="<%= url.redirectUrl %>"><%= url.redirectUrl %></a><br>
+                Short URL: <a href="http://localhost:8000/<%= url.shortId %>">http://localhost:8000/<%= url.shortId %></a><br>
+                Clicks: <%= url.visitHistory.length %><br>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

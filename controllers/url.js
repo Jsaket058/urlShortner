@@ -1,5 +1,6 @@
 const {nanoid} = require('nanoid');
 const URL = require('../models/url');
+const { get } = require('mongoose');
 
 async function generateNewShortURL(req,res){
     const body = req.body;
@@ -13,8 +14,10 @@ async function generateNewShortURL(req,res){
         redirectUrl: body.url,
         visitHistory: []
     });
-
-    return res.json({id:shortId});
+       return res.render("home2",{
+        id:shortId,
+       });
+    // return res.json({id:shortId});
 }
 
 async function redirectToShorternUrl(req,res){
@@ -39,4 +42,11 @@ async function getUrlStats(req,res){
         lastVisited: entry.visitHistory[entry.visitHistory.length - 1].timestamps
     });
 }
-module.exports = {generateNewShortURL, redirectToShorternUrl, getUrlStats};
+
+async function getAllUrlsHome(req,res){
+    const allUrls = await URL.find({});
+    return res.render("home2",{
+        urls: allUrls
+    });
+}
+module.exports = {generateNewShortURL, redirectToShorternUrl, getUrlStats,getAllUrlsHome};
